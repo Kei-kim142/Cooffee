@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".RegisterFragment"
+    android:background="@android:color/white">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_margin="20dp"
+            android:paddingTop="10dp"
+            android:id="@+id/regHeader"
+            >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_coffee_logo_medium"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/app_name"
+                android:fontFamily="@font/lato"
+                android:textSize="25sp"
+                android:textColor="@android:color/black"
+                android:paddingStart="7dp"
+                android:paddingEnd="7dp"
+                android:layout_gravity="center"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="Register"
+                android:fontFamily="@font/lato_light"
+                android:textSize="25sp"
+                android:textColor="@android:color/black"
+                android:paddingStart="7dp"
+                android:paddingEnd="7dp"
+                android:layout_gravity="center"
+                android:gravity="end"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@id/regHeader"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="55dp"
+            android:layout_marginStart="35dp"
+            android:layout_marginEnd="35dp">
+
+            <EditText
+                android:id="@+id/regUsername"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Username"
+                android:textColorHint="@color/colorPrimaryDark"
+                android:textColor="@color/colorPrimaryDark"
+                android:background="@drawable/text_input"
+                android:textSize="12sp"
+                android:padding="13dp"
+                android:paddingStart="17dp"
+                android:paddingEnd="17dp"
+                android:inputType="text"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/lato"
+                />
+            <EditText
+                android:id="@+id/regPass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Password"
+                android:textColorHint="@color/colorPrimaryDark"
+                android:textColor="@color/colorPrimaryDark"
+                android:background="@drawable/text_input"
+                android:textSize="12sp"
+                android:padding="13dp"
+                android:paddingStart="17dp"
+                android:paddingEnd="17dp"
+                android:inputType="textPassword"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/lato"
+                />
+            <EditText
+                android:id="@+id/regConfPass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Confirm Password"
+                android:textColorHint="@color/colorPrimaryDark"
+                android:textColor="@color/colorPrimaryDark"
+                android:background="@drawable/text_input"
+                android:textSize="12sp"
+                android:padding="13dp"
+                android:paddingStart="17dp"
+                android:paddingEnd="17dp"
+                android:inputType="textPassword"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/lato"
+                />
+            <EditText
+                android:id="@+id/regEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Email"
+                android:textColorHint="@color/colorPrimaryDark"
+                android:textColor="@color/colorPrimaryDark"
+                android:background="@drawable/text_input"
+                android:textSize="12sp"
+                android:padding="13dp"
+                android:paddingStart="17dp"
+                android:paddingEnd="17dp"
+                android:inputType="textEmailAddress"
+                android:layout_marginBottom="15dp"
+                android:fontFamily="@font/lato"
+                />
+
+            <Button
+                android:id="@+id/regBtn"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:text="Sign Up"
+                android:textColorHint="@color/colorPrimaryDark"
+                android:background="@drawable/button_background"
+                android:textSize="13sp"
+                android:padding="0dp"
+                android:textAllCaps="false"
+                android:fontFamily="@font/lato"
+                android:textColor="@android:color/white"
+                android:foreground="?attr/selectableItemBackground"
+                />
+
+            <TextView
+                android:id="@+id/regLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Already have an account ? Login"
+                android:fontFamily="@font/lato"
+                android:textColor="@color/darkBrown"
+                android:textSize="13sp"
+                android:layout_gravity="center"
+                android:layout_marginTop="25dp"
+                android:foreground="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"/>
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>
