@@ -6,18 +6,28 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar_start"/>
+
+    <include
+        android:id="@+id/toolbar2"
+        layout="@layout/toolbar_center"
+        />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/white"
-        app:itemIconTint="@color/darkBrown"
-        app:itemTextColor="@color/darkBrown"
+        app:itemIconTint="@color/bnv_icon_color"
+        app:itemTextColor="@color/bnv_icon_color"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bot_nav_menu" />
+        app:menu="@menu/bot_nav_menu"
+        app:labelVisibilityMode="labeled"
+        />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment"
@@ -28,6 +38,6 @@
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
         app:navGraph="@navigation/my_nav" />
 </androidx.constraintlayout.widget.ConstraintLayout>
