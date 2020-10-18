@@ -3,8 +3,11 @@ package com.keiapp.cooffee;
 import android.os.Bundle;
 import android.view.View;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
+import androidx.navigation.NavDestination;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
@@ -29,5 +32,13 @@ public class MainActivity extends AppCompatActivity {
         AppBarConfiguration appBarConfiguration =
                 new AppBarConfiguration.Builder(R.id.homeFragment, R.id.menuFragment,R.id.orderFragment,R.id.cartFragment,R.id.accountFragment).build();
         NavigationUI.setupWithNavController(binding.bottomNavigationView,navController);
+        NavigationUI.setupActionBarWithNavController(this,navController,appBarConfiguration);
+
+        navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
+            @Override
+            public void onDestinationChanged(@NonNull NavController controller, @NonNull NavDestination destination, @Nullable Bundle arguments) {
+
+            }
+        });
     }
 }
