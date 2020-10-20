@@ -8,6 +8,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -15,8 +16,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.keiapp.cooffee.databinding.ActivityStartBinding;
 
 public class StartActivity extends AppCompatActivity {
+    private static final String TAG = "START_TAG";
     private ActivityStartBinding binding;
-    private boolean isLoggedin = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,28 +25,17 @@ public class StartActivity extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
 
-        NavHostFragment navHostFragment =
-                (NavHostFragment) getSupportFragmentManager()
-                        .findFragmentById(R.id.fragment2);
-        NavController navController = navHostFragment.getNavController();
-
         FragmentContainerView fragmentContainerView = binding.fragment2;
 
-        if(isLoggedin){
-            startActivity(new Intent(StartActivity.this,MainActivity.class));
-        }else{
-            fragmentContainerView.setVisibility(View.VISIBLE);
-        }
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null){
-            isLoggedin = true;
+            Intent intent = new Intent(StartActivity.this,MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        }else{
+            fragmentContainerView.setVisibility(View.VISIBLE);
         }
     }
 }

@@ -2,11 +2,25 @@ package com.keiapp.cooffee;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.keiapp.cooffee.adapter.OrderAdapter;
+import com.keiapp.cooffee.databinding.FragmentOrderBinding;
+import com.keiapp.cooffee.model.OrderModel;
+import com.keiapp.cooffee.viewmodel.OrderViewModel;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -46,19 +60,39 @@ public class OrderFragment extends Fragment {
         return fragment;
     }
 
+    private FragmentOrderBinding binding;
+    private static final String TAG = "ORDER_FRAG_LOG";
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+        }    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_order, container, false);
+        binding = FragmentOrderBinding.inflate(getLayoutInflater(),container,false);
+        View view = binding.getRoot();
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        OrderViewModel orderViewModel = new OrderViewModel();
+        final RecyclerView orderList = binding.orderMenuList;
+        orderList.setHasFixedSize(true);
+        orderList.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        orderViewModel.getOrders().observe(getViewLifecycleOwner(), new Observer<List<OrderModel>>() {
+            @Override
+            public void onChanged(List<OrderModel> orderModels) {
+                orderList.setAdapter(new OrderAdapter(orderModels,getContext()));
+            }
+        });
     }
 }

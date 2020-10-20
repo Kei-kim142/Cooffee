@@ -15,4 +15,5 @@
     <color name="darkRed">#EA9D9D</color>
     <color name="lightBrown">#E5C49C</color>
     <color name="inputBrown">#E2CBC1</color>
+    <color name="inputBrownDark">#826F5A</color>
 </resources>

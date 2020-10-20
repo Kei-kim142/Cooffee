@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="180dp"
+    android:background="@color/lightPink"
+    android:padding="10dp"
+    android:layout_marginTop="5dp"
+    >
+
+    <TextView
+        android:id="@+id/orderName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:textSize="15sp"
+        android:textAllCaps="true"
+        android:fontFamily="@font/lato"
+        android:textColor="@android:color/black"
+        android:paddingTop="10dp"/>
+
+    <TextView
+        android:id="@+id/orderPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="RM 0.00"
+        android:textSize="15sp"
+        android:textAllCaps="true"
+        android:fontFamily="@font/lato_light"
+        android:textColor="@android:color/black"
+        android:paddingTop="10dp"
+        app:layout_constraintTop_toBottomOf="@id/orderName"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <Button
+        android:id="@+id/orderDiscount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/button_discount_background"
+        android:fontFamily="@font/lato"
+        android:foreground="?attr/selectableItemBackground"
+        android:text="0% Off"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toStartOf="@+id/orderImg"
+        app:layout_constraintTop_toTopOf="@id/orderPrice" />
+
+    <ImageView
+        android:id="@+id/orderImg"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@android:color/darker_gray"/>
+
+    <Button
+        android:id="@+id/orderAddToCart"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:background="@drawable/button_addtocart_background"
+        android:fontFamily="@font/lato"
+        android:foreground="?attr/selectableItemBackground"
+        android:text="Add to cart"
+        android:textAllCaps="false"
+        android:textColor="@android:color/black"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/orderImg"
+        android:drawableStart="@drawable/ic_add"
+        android:drawablePadding="5dp"
+        android:paddingStart="5dp"
+        android:paddingEnd="10dp"
+        android:drawableTint="@color/darkBrown"
+        android:layout_marginTop="10dp"
+        />
+
+    <TextView
+        android:id="@+id/orderDesc"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fontFamily="@font/lato_light"
+        android:paddingTop="10dp"
+        android:paddingEnd="10dp"
+        android:text="Description"
+        android:textColor="@android:color/black"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/orderAddToCart"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/orderDiscount" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

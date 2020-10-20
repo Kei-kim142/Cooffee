@@ -1,5 +1,6 @@
 package com.keiapp.cooffee;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -20,6 +21,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.keiapp.cooffee.databinding.FragmentRegisterBinding;
 
 /**
@@ -72,6 +76,7 @@ public class RegisterFragment extends Fragment {
     private FragmentRegisterBinding binding;
     private FirebaseAuth auth;
     private static final String TAG = "REG_FRAG_LOG";
+    private Loader loader;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -88,6 +93,7 @@ public class RegisterFragment extends Fragment {
         requireActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
 
         auth = FirebaseAuth.getInstance();
+        loader = new Loader(getActivity());
 
         binding.regBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,38 +117,57 @@ public class RegisterFragment extends Fragment {
 
     private void registerUser() {
 
+        loader.StartDialog("Authenticating new user...");
+
         String username = binding.regUsername.getText().toString();
         String password = binding.regPass.getText().toString();
         String confPassword = binding.regConfPass.getText().toString();
         String email = binding.regEmail.getText().toString();
 
-        validateInput(username,password,confPassword,email);
+        if (validateInput(username,password,confPassword,email)){
 
+            auth.createUserWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                loader.DismissDialog();
+                                // Sign in success, update UI with the signed-in user's information
+                                Log.d(TAG, "createUserWithEmail:success");
+                                updateUI();
 
+                            } else {
+                                loader.DismissDialog();
+                                // If sign in fails, display a message to the user
+                                    try {
+                                        throw task.getException();
+                                    } catch(FirebaseAuthWeakPasswordException e) {
+                                        binding.regPass.setError("Week password, password must contains more than 6 character");
+                                        binding.regPass.requestFocus();
+                                    } catch(FirebaseAuthInvalidCredentialsException e) {
+                                        binding.regEmail.setError("Invalid email address");
+                                        binding.regEmail.requestFocus();
+                                    } catch(FirebaseAuthUserCollisionException e) {
+                                        binding.regEmail.setError("User with the email already exist");
+                                        binding.regEmail.requestFocus();
+                                    } catch(Exception e) {
+                                        Log.e(TAG, e.getMessage());
+                                    }
 
-//        auth.createUserWithEmailAndPassword(email, password)
-//                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<AuthResult> task) {
-//                        if (task.isSuccessful()) {
-//                            // Sign in success, update UI with the signed-in user's information
-//                            Log.d(TAG, "createUserWithEmail:success");
-//                            updateUI();
-//
-//                        } else {
-//                            // If sign in fails, display a message to the user.
-//                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
-//
-//                        }
-//
-//                    }
-//                });
+                            }
+
+                        }
+                    });
+        }else{
+            loader.DismissDialog();
+        }
+
     }
-
     private void updateUI() {
-
+        Intent intent = new Intent(getContext(),MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        getContext().startActivity(intent);
     }
-
     private boolean validateInput(String username, String password, String confPassword, String email) {
         boolean isValid = true;
         String error;
@@ -156,20 +181,23 @@ public class RegisterFragment extends Fragment {
             error = "Password is empty";
             binding.regPass.setError(error);
             isValid = false;
-        }else{
-            if (!TextUtils.isEmpty(confPassword)){
+        }
 
-            }else{
-                error = "Please confirm your password";
-                binding.regConfPass.setError(error);
-                isValid = false;
-            }
+        if (TextUtils.isEmpty(confPassword)){
+            error = "Please confirm your password";
+            binding.regConfPass.setError(error);
+            isValid = false;
         }
 
         if(TextUtils.isEmpty(email) && !isValidEmail(email)){
             error = "Invalid email";
             binding.regEmail.setError(error);
             isValid = false;
+        }
+        
+        if (!password.equals(confPassword)){
+            isValid = false;
+            Toast.makeText(getContext(), "Confirmation password is not identical", Toast.LENGTH_SHORT).show();
         }
 
         return isValid;

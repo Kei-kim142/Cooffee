@@ -1,14 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".OrderFragment">
+    tools:context=".OrderFragment"
+    android:background="@color/background">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent">
 
+        <EditText
+            android:id="@+id/searchOrder"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/lighterBrown"
+            android:drawableEnd="@drawable/ic_search"
+            android:drawableTint="@color/inputBrownDark"
+            android:fontFamily="@font/lato"
+            android:hint="Search..."
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:textColor="@color/inputBrownDark"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:maxLines="1"
+            android:lines="1"
+            android:singleLine="true"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/orderMenuList"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/searchOrder" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

@@ -12,12 +12,14 @@
         android:icon="@drawable/ic_baseline_menu_book_24"/>
     <item
         android:id="@+id/orderFragment"
-        android:title="Order" />
+        android:title="Order"
+        android:icon="@drawable/ic_receipt_long"/>
     <item
         android:id="@+id/cartFragment"
         android:title="Cart"
         android:icon="@drawable/ic_baseline_shopping_cart_24"/>
     <item
         android:id="@+id/accountFragment"
-        android:title="Account" />
+        android:title="Account"
+        android:icon="@drawable/ic_person"/>
 </menu>
