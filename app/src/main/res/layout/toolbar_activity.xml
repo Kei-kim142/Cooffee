@@ -6,12 +6,15 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbarStart"
+        android:id="@+id/toolbarActivity"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:logo="@drawable/ic_coffee_logo_38"
         app:title=" Cooffee"
         app:titleTextColor="@color/colorPrimaryDark"
         app:titleTextAppearance="@style/ToolbarTextAppearance"
-        app:menu="@menu/toolbar_start_menu" />
+        app:navigationIcon="@drawable/ic_arrow_back_ios"
+        android:background="@android:color/white"
+        app:menu="@null"
+        />
 </com.google.android.material.appbar.AppBarLayout>

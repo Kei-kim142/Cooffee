@@ -5,9 +5,7 @@
     <item
         android:id="@+id/toolbarSettings"
         android:title="Settings"
-        app:showAsAction="never"/>
-    <item
-        android:id="@+id/toolbarLogOut"
-        android:title="Log Out"
-        app:showAsAction="never"/>
+        android:icon="@drawable/ic_settings"
+        app:iconTint="@color/darkBrown"
+        app:showAsAction="ifRoom"/>
 </menu>

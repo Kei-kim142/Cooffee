@@ -28,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private static final String TAG = "MAIN_ACTIVITY_LOG";
     private FirebaseAuth auth;
+    private NavController navController;
+    private  Menu menu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,11 +42,12 @@ public class MainActivity extends AppCompatActivity {
 
         final Toolbar centerToolbar = binding.toolbar2.toolbarCenter;
         final Toolbar startToolbar = binding.toolbar.toolbarStart;
+        final Toolbar activityToolbar = binding.toolbar3.toolbarActivity;
 
         final NavHostFragment navHostFragment =
                 (NavHostFragment) getSupportFragmentManager()
                         .findFragmentById(R.id.fragment);
-        NavController navController = navHostFragment.getNavController();
+        navController = navHostFragment.getNavController();
         NavigationUI.setupWithNavController(binding.bottomNavigationView,navController);
 
         navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
@@ -54,18 +57,38 @@ public class MainActivity extends AppCompatActivity {
                 if (destination.getLabel() != null) {
                     switch (destination.getLabel().toString()){
                         case "fragment_home":
-                        case "fragment_account":
                             setSupportActionBar(startToolbar);
                             startToolbar.setVisibility(View.VISIBLE);
                             centerToolbar.setVisibility(View.GONE);
+                            activityToolbar.setVisibility(View.GONE);
+                            binding.bottomNavigationView.setVisibility(View.VISIBLE);
                             break;
+                        case "fragment_account":
                         case "fragment_menu":
                         case "fragment_order":
                         case "fragment_cart":
                             //Second toolbar will sit on the top of the default toolbar
-                            //startToolbar.setVisibility(View.GONE);
+                            startToolbar.setVisibility(View.VISIBLE);
                             centerToolbar.setVisibility(View.VISIBLE);
+                            activityToolbar.setVisibility(View.GONE);
+                            binding.bottomNavigationView.setVisibility(View.VISIBLE);
                             break;
+                        case "fragment_profile_settings":
+                        case "fragment_order_history":
+                        case "fragment_manage_notifications":
+                            setSupportActionBar(activityToolbar);
+                            centerToolbar.setVisibility(View.GONE);
+                            startToolbar.setVisibility(View.GONE);
+                            activityToolbar.setVisibility(View.VISIBLE);
+                            activityToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    navController.navigateUp();
+                                }
+                            });
+                            binding.bottomNavigationView.setVisibility(View.GONE);
+                            break;
+
                     }
                 }
             }
@@ -74,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        this.menu = menu;
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.toolbar_start_menu,menu);
         return true;
@@ -81,7 +105,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        Log.d(TAG, "onOptionsItemSelected: created");
         switch (item.getTitle().toString()){
             case "Log Out":
                 auth.signOut();

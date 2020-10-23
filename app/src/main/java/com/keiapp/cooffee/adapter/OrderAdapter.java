@@ -36,6 +36,16 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         OrderModel orderModel = orderModels.get(position);
 
+        holder.name.setText(orderModel.getName());
+        holder.price.setText(String.format("%.2f",Float.parseFloat(String.valueOf(orderModel.getPrice()))));
+        holder.description.setText(orderModel.getDescription());
+
+        if (orderModel.getDiscount() == 0){
+            holder.discount.setVisibility(View.GONE);
+        }else{
+            holder.discount.setVisibility(View.VISIBLE);
+            holder.discount.setText(orderModel.getDiscount() + "% Off");
+        }
     }
 
     @Override

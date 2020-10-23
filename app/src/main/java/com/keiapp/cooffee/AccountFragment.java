@@ -1,12 +1,19 @@
 package com.keiapp.cooffee;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.keiapp.cooffee.databinding.FragmentAccountBinding;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -55,10 +62,38 @@ public class AccountFragment extends Fragment {
         }
     }
 
+    private FragmentAccountBinding binding;
+    private FirebaseAuth auth;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_account, container, false);
+        binding = FragmentAccountBinding.inflate(getLayoutInflater(),container,false);
+        View view = binding.getRoot();
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        auth = FirebaseAuth.getInstance();
+
+        binding.profileSetting.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_accountFragment_to_profileSettingsFragment, null));
+        binding.manageNoti.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_accountFragment_to_manageNotificationsFragment, null));
+        binding.orderHistory.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_accountFragment_to_orderHistoryFragment, null));
+
+        binding.logOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                auth.signOut();
+
+                Intent intent = new Intent(new Intent(getActivity(),StartActivity.class));
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+                getActivity().finish();
+            }
+        });
     }
 }

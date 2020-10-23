@@ -12,8 +12,12 @@
     <color name="background">#FFFAF8</color>
     <color name="lightRed">#FFD7D7</color>
     <color name="fontRed">#B73E3E</color>
+    <color name="closeButton">#DC4A4A</color>
+    <color name="fontDarkRed">#721313</color>
     <color name="darkRed">#EA9D9D</color>
     <color name="lightBrown">#E5C49C</color>
     <color name="inputBrown">#E2CBC1</color>
     <color name="inputBrownDark">#826F5A</color>
+    <color name="fontGray">#777777</color>
+    <color name="fontLightGray">#909090</color>
 </resources>
